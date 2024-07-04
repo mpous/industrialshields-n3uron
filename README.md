@@ -1,4 +1,4 @@
-# Industrial Shields PLC Raspberry Pi on balena 
+# Industrial Shields PLC Raspberry Pi on balena with N3uron
 
 This is an example on how to run the Industrial Shields PLC Raspberry Pi 4 on balenaOS.
 
@@ -75,33 +75,11 @@ Once flashed, connect the SD to your computer to add an extra `dtbo` file into t
 Once the file is properly saved on the SD card, connect the SD card into the Rasberry Pi 4 PLC and power it up.
 
 
-### Node-RED
+### N3uron
 
-For running Node-RED, use the local IP address on port 80, if you are on the same network than your device. You also can use the `Publick Device URL` by balena to access to the Node-RED UI.
+For running N3uron, use the local IP address on port 80, if you are on the same network than your device. You also can use the `Publick Device URL` by balena to access to the N3uron UI.
 
-#### Device Variables
-
-In case they do not exist, add these variables at balenaCloud at device level using `Device Variables` or at a Fleet level at `Variables` for all the devices.
-
-Variable Name | Default | Description
------------- | ------------- | -------------
-PORT | `80` | the port that exposes the Node-RED UI
-USERNAME | `balena` | the Node-RED admin username
-PASSWORD | `balena` | the Node-RED admin password
-ENCRIPTION_KEY | `balena` | the encription key used to store your credentials files
-
-[image]
-
-You **must** set the `USERNAME` and `PASSWORD` variables to be able to access, save or run programs in Node-RED.  
-
-#### Add the rpiplc node
-
-Once you access to the Node-RED UI, go to the top-right menu and click `Manage pallette` and then go to the `Install` tab to find and install the Industrial Shields PLC node.
-
-[IMAGE]
-
-Search `librpiplc` and you might find the industrial shields bindings for Node-RED. Click install.
-
+Use the credentials `admin` as a user and `n3uron` as a password.
 
 ## Attribution
 
