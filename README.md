@@ -12,11 +12,13 @@ The balena platform enables provisioning, updating the software and OS, and mana
 
 ## Requirements
 
-For this project I'm using: 
+### Hardware
 
 * the [Industrial Shields PLC Raspberry Pi 4 v4 Model 21](https://www.industrialshields.com/es_ES/shop/raspberry-plc-21-2230?attrib=73-416&view_mode=grid#attr=2607,702,743,4073,534,7119,7120,143,5807,4218,4219,4220)
 * the [Industrial Shields Power Supply](https://www.industrialshields.com/es_ES/shop/is-ac12vdc2-5adin-fuente-alimentacion-carril-din-30w-12v-salida-659?attrib=49-456&view_mode=grid#attr=3657)
 * a Modbus Temperature and Humidity sensor 
+
+### Software
 
 * a [balena account](https://dashboard.balena-cloud.com/signup) - free for up to 10 devices
 * [balenaEtcher](https://etcher.balena.io/)
@@ -31,7 +33,7 @@ You have two options here:
 
 Use the button below to create your fleet (of one or more devices) and deploy the code.
 
-[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/industrialshields-balena)
+[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/Industrial-Shields/industrialshields-balena)
 
 If you don't have a balenaCloud account, no worries, you will create it after clicking the `Deploy with balena` button.
 
@@ -54,13 +56,14 @@ cd industrialshields-balena
 - Using [Balena CLI](https://www.balena.io/docs/reference/cli/), push the code with `balena push <your-fleet-name>`
 - See the magic happening, your device is getting updated 🌟Over-The-Air🌟!
 
+
 ## Add a device
 
 Once the release is successfully built on your fleet in balenaCloud, click `Add device`.
 
 And select the device type `Raspberry Pi 4 (using 64bit OS)` balenaOS version. Add the Wi-Fi credentials if needed, and click `Flash` or `Download` the balenaOS image.
 
-[IMAGE]
+![Flash balenaOS](https://github.com/Industrial-Shields/industrialshields-balena/assets/173156/651ee471-9104-4307-9ceb-094a36a70113)
 
 Use balenaEtcher to flash the SD card with the balenaOS image.
 
@@ -70,16 +73,41 @@ Download the Industrial Shields Raspberry Pi PLC `dtbo` overlay file to add to t
 
 Once flashed, connect the SD to your computer to add an extra `dtbo` file into the `overlays` folder of the balenaOS. The unit is called `resin-boot`.
 
-[IMAGE]
+![Industrial Shields dtbo](https://github.com/mpous/industrialshields-balena/assets/173156/734b42c7-2879-47c9-be24-0ea2e3571f44)
 
 Once the file is properly saved on the SD card, connect the SD card into the Rasberry Pi 4 PLC and power it up.
 
+### Configure the DT Overlay
+
+Define the DT Overlays to enable all the I/O capabilities of the PLC.
+
+* Edit the `Define DT overlays` field and introduce these device tree overlays: `"vc4-kms-v3d","spi0-2cs,cs0_pin=7,cs1_pin=8","w5500,cs=0,int_pin=6,speed=10000000","i2c-rtc,ds3231","sc16is752-spi1-rpiplc-v4,xtal=14745600"`.
+
+* Edit the `Define DT parameters for the default overlay` with: `"spi=on","i2c_arm=on"`.
+
+* Edit the `Allows GPIO pins to be set to specific modes and values at boot time.` and add these parameters: `"8=pd","16=pu"`.
+
+![balenaCloud Define DT Overlays](https://github.com/mpous/industrialshields-balena/assets/173156/3c6f40f8-09fc-41ab-9e3b-d26d76278b52)
+
+If you are running a fleet of devices, you should do this from the Fleet level in the Fleet `Configuration` section. Then all the devices from your fleet will inherit the DT overlays and parameters.
+
+
+## Run the application
 
 ### N3uron
 
 For running N3uron, use the local IP address on port 80, if you are on the same network than your device. You also can use the `Publick Device URL` by balena to access to the N3uron UI.
 
 Use the credentials `admin` as a user and `n3uron` as a password.
+
+### Connect a modbus sensor
+
+![Configuring the Modbus Module on N3uron with balena](https://github.com/mpous/industrialshields-n3uron/assets/173156/de8b7914-81c8-43ad-aff9-de5722a9b8ef)
+
+![Defining the Temperature Tags](https://github.com/mpous/industrialshields-n3uron/assets/173156/21b1c94c-d045-45ae-b035-01af4c623560)
+
+![Realtime Data from the Modbus sensor](https://github.com/mpous/industrialshields-n3uron/assets/173156/e7b32e94-3eea-403c-8903-469422823fed)
+
 
 ## Attribution
 
