@@ -49,7 +49,7 @@ Now open a Terminal on your computer:
 
 ```
 cd ~/workspace
-git clone https://github.com/mpous/industrialshields-balena
+git clone https://github.com/mpous/industrialshields-n3uron
 cd industrialshields-balena
 ```
 
