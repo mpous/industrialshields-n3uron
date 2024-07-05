@@ -33,7 +33,7 @@ You have two options here:
 
 Use the button below to create your fleet (of one or more devices) and deploy the code.
 
-[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/Industrial-Shields/industrialshields-balena)
+[![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/mpous/industrialshields-n3uron)
 
 If you don't have a balenaCloud account, no worries, you will create it after clicking the `Deploy with balena` button.
 
